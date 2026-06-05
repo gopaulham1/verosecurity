@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   ArrowRight,
   ShieldCheck,
@@ -77,9 +79,9 @@ const sectorTabs = [
 
 const sectorCards = [
   {
+    tabLabel: "Retail",
     title: "Retail Security",
     icon: ShoppingBag,
-    featured: true,
     text: "Protecting people, property and profits across stores, shopping centres and retail environments of all sizes.",
     points: [
       "Loss prevention & theft deterrence",
@@ -88,6 +90,7 @@ const sectorCards = [
     ],
   },
   {
+    tabLabel: "Hotels",
     title: "Hotel Security",
     icon: Building2,
     text: "Delivering exceptional guest experiences with discreet, professional security that protects your reputation.",
@@ -98,6 +101,7 @@ const sectorCards = [
     ],
   },
   {
+    tabLabel: "Events",
     title: "Event Security",
     icon: Music,
     text: "Specialist security for events of any scale, from intimate gatherings to large public spectacles.",
@@ -107,9 +111,60 @@ const sectorCards = [
       "Risk assessment & contingency planning",
     ],
   },
+  {
+    tabLabel: "Luxury",
+    title: "Luxury Security",
+    icon: Star,
+    text: "Discreet security professionals for luxury brands, premium spaces and high-value environments.",
+    points: [
+      "Luxury retail protection",
+      "High-value asset safeguarding",
+      "Polished client-facing presence",
+    ],
+  },
+  {
+    tabLabel: "Corporate",
+    title: "Corporate Security",
+    icon: BriefcaseBusiness,
+    text: "Professional security staffing for offices, commercial buildings and corporate operations.",
+    points: [
+      "Reception & front-of-house security",
+      "Staff and visitor protection",
+      "Access control & incident response",
+    ],
+  },
+  {
+    tabLabel: "VIP",
+    title: "VIP Security",
+    icon: ShieldCheck,
+    text: "Trusted security personnel for VIP guests, executives, private events and sensitive movements.",
+    points: [
+      "Executive & celebrity protection",
+      "Secure arrivals and departures",
+      "Discreet risk management",
+    ],
+  },
 ];
 
 function App() {
+  const [activeSectorIndex, setActiveSectorIndex] = useState(0);
+  const activeSectorLabel = sectorTabs[activeSectorIndex]?.label;
+
+  const visibleSectorCards =
+    activeSectorIndex <= 2 ? sectorCards.slice(0, 3) : sectorCards.slice(3, 6);
+
+  const goToPreviousSector = () => {
+    setActiveSectorIndex((currentIndex) =>
+      currentIndex === 0 ? sectorTabs.length - 1 : currentIndex - 1,
+    );
+  };
+
+  const goToNextSector = () => {
+    setActiveSectorIndex((currentIndex) =>
+      currentIndex === sectorTabs.length - 1 ? 0 : currentIndex + 1,
+    );
+  };
+
   return (
     <main className="page">
       <section className="hero">
@@ -406,13 +461,17 @@ function App() {
           </p>
 
           <div className="sector-tabs">
-            {sectorTabs.map((tab) => {
+            {sectorTabs.map((tab, index) => {
               const Icon = tab.icon;
 
               return (
                 <button
-                  className={`sector-tab ${tab.active ? "active" : ""}`}
+                  type="button"
+                  className={`sector-tab ${
+                    activeSectorIndex === index ? "active" : ""
+                  }`}
                   key={tab.label}
+                  onClick={() => setActiveSectorIndex(index)}
                 >
                   <Icon size={28} />
                   {tab.label}
@@ -421,31 +480,40 @@ function App() {
             })}
           </div>
 
-          <div className="sector-line">
+          <div
+            className="sector-line"
+            style={{ "--active-column": activeSectorIndex + 1 }}
+          >
             <span></span>
           </div>
 
           <button
+            type="button"
             className="sector-slider-btn sector-slider-left"
             aria-label="Previous sector"
+            onClick={goToPreviousSector}
           >
             ‹
           </button>
 
           <button
+            type="button"
             className="sector-slider-btn sector-slider-right"
             aria-label="Next sector"
+            onClick={goToNextSector}
           >
             ›
           </button>
 
           <div className="sector-detail-grid">
-            {sectorCards.map((card) => {
+            {visibleSectorCards.map((card) => {
               const Icon = card.icon;
 
               return (
                 <article
-                  className={`sector-detail-card ${card.featured ? "featured" : ""}`}
+                  className={`sector-detail-card ${
+                    card.tabLabel === activeSectorLabel ? "featured" : ""
+                  }`}
                   key={card.title}
                 >
                   <div className="sector-detail-icon">

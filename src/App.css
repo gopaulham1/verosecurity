@@ -1378,3 +1378,28 @@ h1 strong {
 .sector-bottom-cta {
   margin-top: 36px;
 }
+
+/* --- Move blue underline under active sector tab --- */
+
+.sector-line {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.sector-line span {
+  position: relative;
+  top: -3px;
+  left: auto;
+  grid-column: var(--active-column);
+  justify-self: center;
+  width: 88px;
+  height: 4px;
+  border-radius: 999px;
+  background: #0b63f6;
+  box-shadow:
+    0 0 18px rgba(37, 99, 235, 0.85),
+    0 0 30px rgba(37, 99, 235, 0.55);
+  transition: grid-column 0.25s ease;
+}
