@@ -14,6 +14,7 @@ import {
   Users,
   Search,
   Headphones,
+  TrendingUp,
   ChevronRight,
 } from "lucide-react";
 
@@ -192,10 +193,9 @@ function App() {
           <nav className="nav-links">
             <a href="#about">About Us</a>
             <a href="#sectors">Sectors</a>
-            <a href="#">Candidates</a>
-            <a href="#">Employers</a>
-            <a href="#">Jobs</a>
-            <a href="#">Resources</a>
+            <a href="#audiences">Candidates</a>
+            <a href="#audiences">Employers</a>
+            <a href="#">Clients</a>
             <a href="#">Contact</a>
           </nav>
 
@@ -554,6 +554,138 @@ function App() {
 
             <button className="sector-cta-btn">
               Discuss Your Staffing Needs
+              <ArrowRight size={21} />
+            </button>
+          </div>
+        </div>
+      </section>
+      <section className="audience-section" id="audiences">
+        <img src={veroMark} alt="" className="audience-watermark" />
+
+        <div className="audience-inner">
+          <h2>
+            Built for <strong>Employers.</strong>
+            <br />
+            Designed for <strong>Candidates.</strong>
+          </h2>
+
+          <p className="audience-subtitle">
+            The right people, in the right roles, for the right reasons.
+          </p>
+
+          <div className="audience-grid">
+            <aside className="audience-copy">
+              <p>
+                We connect fully vetted security professionals with leading
+                organisations across the UK. Whether you’re hiring or job
+                seeking, we make the process simple, fast and built on trust.
+              </p>
+
+              <div className="audience-stat-card">
+                <div className="audience-stat-icon">
+                  <ShieldCheck size={34} />
+                </div>
+
+                <div>
+                  <h3>50+</h3>
+                  <span>Vetted Professionals</span>
+                  <p>Ready to work. Ready to protect.</p>
+                </div>
+              </div>
+            </aside>
+
+            <article className="audience-card">
+              <div className="audience-card-icon">
+                <BriefcaseBusiness size={31} />
+              </div>
+
+              <h3>Employers</h3>
+
+              <p className="audience-card-intro">
+                Reliable security staffing, tailored to your needs.
+              </p>
+
+              <div className="audience-mini-grid">
+                <div className="audience-mini-card">
+                  <ShieldCheck size={31} />
+                  <h4>Vetted Professionals</h4>
+                  <p>Licensed, insured and thoroughly background checked.</p>
+                </div>
+
+                <div className="audience-mini-card">
+                  <Zap size={31} />
+                  <h4>Fast Deployment</h4>
+                  <p>Rapid response teams available across the UK, 24/7.</p>
+                </div>
+
+                <div className="audience-mini-card">
+                  <Users size={31} />
+                  <h4>Flexible Solutions</h4>
+                  <p>Scalable staffing for short-term and recurring needs.</p>
+                </div>
+              </div>
+
+              <button className="audience-primary-btn">
+                Request Staff
+                <ArrowRight size={21} />
+              </button>
+            </article>
+
+            <article className="audience-card">
+              <div className="audience-card-icon">
+                <Users size={31} />
+              </div>
+
+              <h3>Candidates</h3>
+
+              <p className="audience-card-intro">
+                Find security roles that fit your skills and lifestyle.
+              </p>
+
+              <div className="audience-mini-grid">
+                <div className="audience-mini-card">
+                  <Search size={31} />
+                  <h4>Verified Jobs</h4>
+                  <p>Roles from trusted employers across all sectors.</p>
+                </div>
+
+                <div className="audience-mini-card">
+                  <ShieldCheck size={31} />
+                  <h4>Fair & Transparent</h4>
+                  <p>
+                    Clear pay, expectations and opportunities that match you.
+                  </p>
+                </div>
+
+                <div className="audience-mini-card">
+                  <TrendingUp size={31} />
+                  <h4>Career Growth</h4>
+                  <p>Training, progression and support to build your future.</p>
+                </div>
+              </div>
+
+              <button className="audience-primary-btn">
+                Find Security Jobs
+                <ArrowRight size={21} />
+              </button>
+            </article>
+          </div>
+
+          <div className="audience-help-bar">
+            <div className="audience-help-icon">
+              <Headphones size={32} />
+            </div>
+
+            <div>
+              <h3>Not sure where to start? Our team can help.</h3>
+              <p>
+                We’ll guide you to the right solution, whether you’re hiring or
+                looking for your next opportunity.
+              </p>
+            </div>
+
+            <button className="audience-outline-btn">
+              Contact Vero
               <ArrowRight size={21} />
             </button>
           </div>
