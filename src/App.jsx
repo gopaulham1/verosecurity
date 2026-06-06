@@ -5,6 +5,11 @@ import {
   ShieldCheck,
   Zap,
   MapPin,
+  Phone,
+  Mail,
+  Lock,
+  User,
+  MessageCircle,
   Music,
   Tent,
   ShoppingBag,
@@ -20,6 +25,7 @@ import {
 
 import heroBg from "./assets/hero-bg.png";
 import veroMark from "./assets/vero-mark.png";
+import { supabase } from "./lib/supabaseClient";
 import "./App.css";
 
 const sectors = [
@@ -151,6 +157,59 @@ function App() {
   const [activeSectorIndex, setActiveSectorIndex] = useState(0);
   const activeSectorLabel = sectorTabs[activeSectorIndex]?.label;
 
+  const [contactForm, setContactForm] = useState({
+    full_name: "",
+    company_name: "",
+    email: "",
+    phone: "",
+    enquiry_type: "",
+    message: "",
+  });
+
+  const [contactStatus, setContactStatus] = useState("");
+
+  const handleContactChange = (event) => {
+    const { name, value } = event.target;
+
+    setContactForm((currentForm) => ({
+      ...currentForm,
+      [name]: value,
+    }));
+  };
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault();
+    setContactStatus("sending");
+
+    const { error } = await supabase.from("enquiries").insert([
+      {
+        full_name: contactForm.full_name,
+        company_name: contactForm.company_name,
+        email: contactForm.email,
+        phone: contactForm.phone,
+        enquiry_type: contactForm.enquiry_type,
+        message: contactForm.message,
+      },
+    ]);
+
+    if (error) {
+      console.error("Supabase enquiry error:", error);
+      setContactStatus("error");
+      return;
+    }
+
+    setContactStatus("success");
+
+    setContactForm({
+      full_name: "",
+      company_name: "",
+      email: "",
+      phone: "",
+      enquiry_type: "",
+      message: "",
+    });
+  };
+
   const visibleSectorCards =
     activeSectorIndex <= 2 ? sectorCards.slice(0, 3) : sectorCards.slice(3, 6);
 
@@ -164,6 +223,19 @@ function App() {
     setActiveSectorIndex((currentIndex) =>
       currentIndex === sectorTabs.length - 1 ? 0 : currentIndex + 1,
     );
+  };
+
+  const scrollToContact = (enquiryType = "") => {
+    if (enquiryType) {
+      setContactForm((currentForm) => ({
+        ...currentForm,
+        enquiry_type: enquiryType,
+      }));
+    }
+
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -195,11 +267,14 @@ function App() {
             <a href="#sectors">Sectors</a>
             <a href="#audiences">Candidates</a>
             <a href="#audiences">Employers</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+            <a href="#vetting">Vetting</a>
+            <a href="#contact">Contact</a>
           </nav>
 
-          <button className="nav-button">
+          <button
+            className="nav-button"
+            onClick={() => scrollToContact("client")}
+          >
             Hire Security Staff
             <ArrowRight size={18} />
           </button>
@@ -227,12 +302,18 @@ function App() {
             </p>
 
             <div className="hero-buttons">
-              <button className="primary-btn">
+              <button
+                className="primary-btn"
+                onClick={() => scrollToContact("client")}
+              >
                 Hire Security Staff
                 <ArrowRight size={20} />
               </button>
 
-              <button className="secondary-btn">
+              <button
+                className="secondary-btn"
+                onClick={() => scrollToContact("candidate")}
+              >
                 Find Security Jobs
                 <ArrowRight size={20} />
               </button>
@@ -552,7 +633,10 @@ function App() {
               </p>
             </div>
 
-            <button className="sector-cta-btn">
+            <button
+              className="sector-cta-btn"
+              onClick={() => scrollToContact("client")}
+            >
               Discuss Your Staffing Needs
               <ArrowRight size={21} />
             </button>
@@ -625,7 +709,10 @@ function App() {
                 </div>
               </div>
 
-              <button className="audience-primary-btn">
+              <button
+                className="audience-primary-btn"
+                onClick={() => scrollToContact("client")}
+              >
                 Request Staff
                 <ArrowRight size={21} />
               </button>
@@ -664,7 +751,10 @@ function App() {
                 </div>
               </div>
 
-              <button className="audience-primary-btn">
+              <button
+                className="audience-primary-btn"
+                onClick={() => scrollToContact("candidate")}
+              >
                 Find Security Jobs
                 <ArrowRight size={21} />
               </button>
@@ -684,10 +774,356 @@ function App() {
               </p>
             </div>
 
-            <button className="audience-outline-btn">
+            <button
+              className="audience-outline-btn"
+              onClick={() => scrollToContact("other")}
+            >
               Contact Vero
               <ArrowRight size={21} />
             </button>
+          </div>
+        </div>
+      </section>
+      <section className="vetting-section" id="vetting">
+        <img src={veroMark} alt="" className="vetting-watermark" />
+
+        <div className="vetting-inner">
+          <div className="vetting-kicker">
+            <span></span>
+            Trusted Recruitment
+          </div>
+
+          <h2>
+            Our <strong>Vetting Standards</strong>
+          </h2>
+
+          <p className="vetting-intro">
+            We do not just fill roles. We build trusted teams. Every
+            professional we place goes through a rigorous vetting process to
+            ensure your security is in the right hands.
+          </p>
+
+          <div className="vetting-steps">
+            <article className="vetting-step">
+              <div className="vetting-step-number">1</div>
+              <div className="vetting-step-icon">
+                <ShieldCheck size={34} />
+              </div>
+              <h3>Licence Verification</h3>
+              <p>
+                All licences are verified with official bodies to ensure
+                validity and compliance.
+              </p>
+            </article>
+
+            <article className="vetting-step">
+              <div className="vetting-step-number">2</div>
+              <div className="vetting-step-icon">
+                <BriefcaseBusiness size={34} />
+              </div>
+              <h3>Identity & Right To Work</h3>
+              <p>
+                We verify identity documents and confirm the right to work in
+                the UK.
+              </p>
+            </article>
+
+            <article className="vetting-step">
+              <div className="vetting-step-number">3</div>
+              <div className="vetting-step-icon">
+                <Search size={34} />
+              </div>
+              <h3>Experience Review</h3>
+              <p>
+                Detailed assessment of experience, qualifications and
+                role-specific skills.
+              </p>
+            </article>
+
+            <article className="vetting-step">
+              <div className="vetting-step-number">4</div>
+              <div className="vetting-step-icon">
+                <Users size={34} />
+              </div>
+              <h3>Reference Checks</h3>
+              <p>
+                We speak with previous employers to validate performance and
+                reliability.
+              </p>
+            </article>
+
+            <article className="vetting-step">
+              <div className="vetting-step-number">5</div>
+              <div className="vetting-step-icon">
+                <Star size={34} />
+              </div>
+              <h3>Final Quality Match</h3>
+              <p>
+                We match the right professional to your role, location and
+                requirements.
+              </p>
+            </article>
+          </div>
+
+          <div className="vetting-stats">
+            <div className="vetting-stat">
+              <div className="vetting-stat-icon">
+                <Headphones size={48} />
+              </div>
+              <div>
+                <h3>24/7</h3>
+                <span>Support</span>
+                <p>
+                  Always-on support for urgent staffing and last-minute cover.
+                </p>
+              </div>
+            </div>
+
+            <div className="vetting-stat">
+              <div className="vetting-stat-icon">
+                <Zap size={48} />
+              </div>
+              <div>
+                <h3>Rapid</h3>
+                <span>Staffing</span>
+                <p>Quick response teams ready to deploy at short notice.</p>
+              </div>
+            </div>
+
+            <div className="vetting-stat">
+              <div className="vetting-stat-icon">
+                <MapPin size={48} />
+              </div>
+              <div>
+                <h3>UK-Wide</h3>
+                <span>Coverage</span>
+                <p>Trusted professionals available nationwide.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="contact-section" id="contact">
+        <img src={veroMark} alt="" className="contact-watermark" />
+
+        <div className="contact-inner">
+          <div className="contact-main-grid">
+            <div className="contact-left">
+              <div className="contact-kicker">
+                <span></span>
+                Get In Touch
+              </div>
+
+              <h2>
+                Let’s Talk <strong>Security</strong>
+                <br />
+                Staffing.
+              </h2>
+
+              <p className="contact-intro">
+                Whether you’re a security professional looking for work or a
+                company that needs trusted staff, we’re here to help. Fill out
+                the form and our team will get back to you shortly.
+              </p>
+
+              <form className="contact-form" onSubmit={handleContactSubmit}>
+                {" "}
+                <div className="contact-form-row">
+                  <div className="contact-field">
+                    <User size={19} />
+                    <input
+                      type="text"
+                      name="full_name"
+                      value={contactForm.full_name}
+                      onChange={handleContactChange}
+                      placeholder="Full Name *"
+                      required
+                    />
+                  </div>
+
+                  <div className="contact-field">
+                    <Building2 size={19} />
+                    <input
+                      type="text"
+                      name="company_name"
+                      value={contactForm.company_name}
+                      onChange={handleContactChange}
+                      placeholder="Company Name / If Applicable"
+                    />
+                  </div>
+                </div>
+                <div className="contact-form-row">
+                  <div className="contact-field">
+                    <Mail size={19} />
+                    <input
+                      type="email"
+                      name="email"
+                      value={contactForm.email}
+                      onChange={handleContactChange}
+                      placeholder="Email Address *"
+                      required
+                    />
+                  </div>
+
+                  <div className="contact-field">
+                    <Phone size={19} />
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={contactForm.phone}
+                      onChange={handleContactChange}
+                      placeholder="Phone Number"
+                    />
+                  </div>
+                </div>
+                <div className="contact-field contact-select-field">
+                  <ShieldCheck size={19} />
+                  <select
+                    name="enquiry_type"
+                    value={contactForm.enquiry_type}
+                    onChange={handleContactChange}
+                    required
+                  >
+                    <option value="" disabled>
+                      I am a...
+                    </option>
+                    <option value="candidate">
+                      Security professional looking for work
+                    </option>
+                    <option value="client">
+                      Company looking for security staff
+                    </option>
+                    <option value="other">Other enquiry</option>
+                  </select>
+                </div>
+                <div className="contact-field contact-message-field">
+                  <MessageCircle size={19} />
+                  <textarea
+                    name="message"
+                    value={contactForm.message}
+                    onChange={handleContactChange}
+                    placeholder="Tell us what you need..."
+                    rows="4"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="contact-submit-btn"
+                  disabled={contactStatus === "sending"}
+                >
+                  {contactStatus === "sending" ? "Sending..." : "Send Enquiry"}
+                  <ArrowRight size={21} />
+                </button>
+                <p className="contact-secure-note">
+                  <Lock size={15} />
+                  Your information is secure and will never be shared.
+                </p>
+                {contactStatus === "success" && (
+                  <div className="contact-feedback contact-feedback-success">
+                    <div className="contact-feedback-icon">
+                      <ShieldCheck size={22} />
+                    </div>
+
+                    <div>
+                      <h4>Enquiry sent successfully</h4>
+                      <p>
+                        Thanks for contacting Vero Security. Our team will
+                        review your enquiry and get back to you shortly.
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {contactStatus === "error" && (
+                  <div className="contact-feedback contact-feedback-error">
+                    <div className="contact-feedback-icon">
+                      <MessageCircle size={22} />
+                    </div>
+
+                    <div>
+                      <h4>Something went wrong</h4>
+                      <p>
+                        Please check your details and try again. If the issue
+                        continues, call us directly on 020 7123 4567.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </form>
+            </div>
+
+            <div className="contact-right-column">
+              <div className="contact-info-stack">
+                <article className="contact-info-card">
+                  <div className="contact-info-icon">
+                    <Users size={34} />
+                  </div>
+
+                  <div>
+                    <h3>For Security Professionals</h3>
+                    <p>
+                      Apply for roles, join our candidate network and hear about
+                      suitable security opportunities.
+                    </p>
+                  </div>
+                </article>
+
+                <article className="contact-info-card">
+                  <div className="contact-info-icon">
+                    <BriefcaseBusiness size={34} />
+                  </div>
+
+                  <div>
+                    <h3>For Employers</h3>
+                    <p>
+                      Request reliable, vetted security staff for your site,
+                      event, venue or business.
+                    </p>
+                  </div>
+                </article>
+
+                <article className="contact-info-card">
+                  <div className="contact-info-icon">
+                    <Zap size={34} />
+                  </div>
+
+                  <div>
+                    <h3>Response Time</h3>
+                    <strong>Within 1 Business Hour</strong>
+                    <p>Average response time for urgent staffing enquiries.</p>
+                  </div>
+                </article>
+
+                <article className="contact-info-card">
+                  <div className="contact-info-icon">
+                    <MapPin size={34} />
+                  </div>
+
+                  <div>
+                    <h3>Office / Nationwide Coverage</h3>
+                    <p>
+                      London based support with trusted professionals available
+                      across the UK.
+                    </p>
+                  </div>
+                </article>
+              </div>
+
+              <div className="contact-bottom-bar contact-bottom-bar-right">
+                <div className="contact-bottom-icon">
+                  <Headphones size={34} />
+                </div>
+
+                <div>
+                  <h3>Need immediate assistance?</h3>
+                  <p>
+                    Our team is ready to help with urgent staffing needs,
+                    applications and last-minute cover.
+                  </p>
+                </div>
+
+                <button className="contact-call-btn">020 7123 4567</button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
