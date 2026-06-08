@@ -21,6 +21,8 @@ import {
   Headphones,
   TrendingUp,
   ChevronRight,
+  Menu,
+  X,
 } from "lucide-react";
 
 import heroBg from "./assets/hero-bg.png";
@@ -155,6 +157,7 @@ const sectorCards = [
 
 function App() {
   const [activeSectorIndex, setActiveSectorIndex] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const activeSectorLabel = sectorTabs[activeSectorIndex]?.label;
 
   const [contactForm, setContactForm] = useState({
@@ -226,6 +229,8 @@ function App() {
   };
 
   const scrollToContact = (enquiryType = "") => {
+    setIsMobileMenuOpen(false);
+
     if (enquiryType) {
       setContactForm((currentForm) => ({
         ...currentForm,
@@ -240,9 +245,9 @@ function App() {
 
   const isAdminPath = window.location.pathname.startsWith("/admin");
 
-if (isAdminPath) {
-  return <AdminApp />;
-}
+  if (isAdminPath) {
+    return <AdminApp />;
+  }
 
   return (
     <main className="page">
@@ -268,13 +273,49 @@ if (isAdminPath) {
             </div>
           </div>
 
-          <nav className="nav-links">
-            <a href="#about">About Us</a>
-            <a href="#sectors">Sectors</a>
-            <a href="#audiences">Candidates</a>
-            <a href="#audiences">Employers</a>
-            <a href="#vetting">Vetting</a>
-            <a href="#contact">Contact</a>
+          <button
+            type="button"
+            className="nav-menu-toggle"
+            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen((current) => !current)}
+          >
+            {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+
+          <nav className={`nav-links ${isMobileMenuOpen ? "open" : ""}`}>
+            <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>
+              About Us
+            </a>
+
+            <a href="#sectors" onClick={() => setIsMobileMenuOpen(false)}>
+              Sectors
+            </a>
+
+            <a href="#audiences" onClick={() => setIsMobileMenuOpen(false)}>
+              Candidates
+            </a>
+
+            <a href="#audiences" onClick={() => setIsMobileMenuOpen(false)}>
+              Employers
+            </a>
+
+            <a href="#vetting" onClick={() => setIsMobileMenuOpen(false)}>
+              Vetting
+            </a>
+
+            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+              Contact
+            </a>
+
+            <button
+              type="button"
+              className="mobile-menu-cta"
+              onClick={() => scrollToContact("client")}
+            >
+              Hire Security Staff
+              <ArrowRight size={18} />
+            </button>
           </nav>
 
           <button
@@ -554,9 +595,8 @@ if (isAdminPath) {
               return (
                 <button
                   type="button"
-                  className={`sector-tab ${
-                    activeSectorIndex === index ? "active" : ""
-                  }`}
+                  className={`sector-tab ${activeSectorIndex === index ? "active" : ""
+                    }`}
                   key={tab.label}
                   onClick={() => setActiveSectorIndex(index)}
                 >
@@ -598,9 +638,8 @@ if (isAdminPath) {
 
               return (
                 <article
-                  className={`sector-detail-card ${
-                    card.tabLabel === activeSectorLabel ? "featured" : ""
-                  }`}
+                  className={`sector-detail-card ${card.tabLabel === activeSectorLabel ? "featured" : ""
+                    }`}
                   key={card.title}
                 >
                   <div className="sector-detail-icon">
