@@ -3800,3 +3800,255 @@ h1 strong {
     width: 100%;
   }
 }
+
+/* --- Mobile Employers / Candidates section: fix overflow + compact cards --- */
+
+@media (max-width: 680px) {
+  .audience-section {
+    padding: 54px 22px 44px;
+    overflow: hidden;
+  }
+
+  .audience-inner,
+  .audience-grid,
+  .audience-copy,
+  .audience-card,
+  .audience-help-bar,
+  .audience-stat-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .audience-section h2 {
+    font-size: clamp(38px, 10.5vw, 46px);
+    line-height: 1.06;
+    letter-spacing: -0.055em;
+  }
+
+  .audience-subtitle {
+    margin-top: 22px;
+    font-size: 17px;
+    line-height: 1.45;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 18px;
+    margin-top: 26px;
+    overflow: hidden;
+  }
+
+  .audience-copy {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .audience-copy > p {
+    padding-right: 0;
+    font-size: 15.5px;
+    line-height: 1.45;
+  }
+
+  .audience-stat-card {
+    min-height: auto;
+    padding: 16px 18px;
+    grid-template-columns: 48px 1fr;
+    gap: 14px;
+  }
+
+  .audience-stat-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .audience-stat-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .audience-stat-card h3 {
+    font-size: 28px;
+  }
+
+  .audience-stat-card span {
+    margin-top: 6px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+
+  .audience-stat-card p {
+    margin-top: 8px;
+    font-size: 12.5px;
+  }
+
+  .audience-card {
+    padding: 20px 18px;
+    border-radius: 13px;
+    overflow: hidden;
+  }
+
+  .audience-card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 14px;
+  }
+
+  .audience-card-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .audience-card h3 {
+    font-size: 26px;
+  }
+
+  .audience-card-intro {
+    font-size: 14.5px;
+    line-height: 1.35;
+  }
+
+  .audience-mini-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
+  }
+
+  .audience-mini-card {
+    min-height: auto;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    column-gap: 12px;
+    row-gap: 3px;
+    align-items: center;
+  }
+
+  .audience-mini-card svg {
+    grid-row: 1 / 3;
+    width: 24px;
+    height: 24px;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .audience-mini-card h4 {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.15;
+  }
+
+  .audience-mini-card p {
+    grid-column: 2 / -1;
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.3;
+  }
+
+  .audience-primary-btn {
+    width: 100%;
+    height: 50px;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .audience-help-bar {
+    margin-top: 18px;
+    padding: 18px;
+    grid-template-columns: 46px 1fr !important;
+    gap: 14px;
+    align-items: start;
+  }
+
+  .audience-help-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .audience-help-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .audience-help-bar h3 {
+    font-size: 18px;
+    line-height: 1.15;
+  }
+
+  .audience-help-bar p {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .audience-outline-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    height: 48px;
+    font-size: 14px;
+  }
+}
+
+/* --- Mobile Employers/Candidates cards: icon beside title --- */
+
+@media (max-width: 680px) {
+  .audience-card {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    column-gap: 14px;
+    row-gap: 12px;
+    align-items: center;
+  }
+
+  .audience-card-icon {
+    grid-column: 1;
+    grid-row: 1;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .audience-card h3 {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    align-self: center;
+    font-size: 28px;
+    line-height: 1.1;
+  }
+
+  .audience-card-intro,
+  .audience-mini-grid,
+  .audience-primary-btn {
+    grid-column: 1 / -1;
+  }
+
+  .audience-card-intro {
+    margin-top: 0;
+  }
+}
+/* Mobile Employers/Candidates: reduce gap above mini cards */
+
+@media (max-width: 680px) {
+  .audience-card-intro {
+    margin-bottom: 8px;
+  }
+
+  .audience-mini-grid {
+    margin-top: 8px;
+    padding-top: 10px;
+  }
+
+  .audience-card {
+    row-gap: 8px;
+  }
+
+  .audience-mini-card {
+    padding: 12px 14px;
+  }
+}
