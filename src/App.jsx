@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   ArrowRight,
@@ -237,6 +237,12 @@ function App() {
       behavior: "smooth",
     });
   };
+
+  const isAdminPath = window.location.pathname.startsWith("/admin");
+
+if (isAdminPath) {
+  return <AdminApp />;
+}
 
   return (
     <main className="page">
@@ -1126,6 +1132,311 @@ function App() {
             </div>
           </div>
         </div>
+      </section>
+    </main>
+  );
+}
+
+function AdminApp() {
+  const [session, setSession] = useState(null);
+  const [loadingSession, setLoadingSession] = useState(true);
+  const [loadingEnquiries, setLoadingEnquiries] = useState(false);
+  const [enquiries, setEnquiries] = useState([]);
+  const [enquiriesError, setEnquiriesError] = useState("");
+  const [loginError, setLoginError] = useState("");
+
+  const [loginForm, setLoginForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const fetchEnquiries = async () => {
+    setLoadingEnquiries(true);
+    setEnquiriesError("");
+
+    const { data, error } = await supabase
+      .from("enquiries")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Enquiries fetch error:", error);
+      setEnquiriesError(error.message);
+      setLoadingEnquiries(false);
+      return;
+    }
+
+    setEnquiries(data || []);
+    setLoadingEnquiries(false);
+  };
+
+  useEffect(() => {
+    const loadSession = async () => {
+      const { data } = await supabase.auth.getSession();
+
+      setSession(data.session ?? null);
+      setLoadingSession(false);
+    };
+
+    loadSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      setSession(newSession);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (session) {
+      fetchEnquiries();
+    }
+  }, [session]);
+
+  const handleLoginChange = (event) => {
+    const { name, value } = event.target;
+
+    setLoginForm((currentForm) => ({
+      ...currentForm,
+      [name]: value,
+    }));
+  };
+
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    setLoginError("");
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: loginForm.email,
+      password: loginForm.password,
+    });
+
+    if (error) {
+      setLoginError(error.message);
+      return;
+    }
+
+    window.history.pushState({}, "", "/admin/enquiries");
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+    window.history.pushState({}, "", "/admin/login");
+  };
+
+  const getEnquiryLabel = (type) => {
+    if (type === "candidate") return "Candidate";
+    if (type === "client") return "Client";
+    return "Other";
+  };
+
+  const formatDate = (dateValue) => {
+    if (!dateValue) return "No date";
+
+    return new Date(dateValue).toLocaleString("en-GB", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+  };
+
+  if (loadingSession) {
+    return (
+      <main className="admin-page">
+        <div className="admin-loading-card">
+          <ShieldCheck size={42} />
+          <p>Loading admin area...</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (!session) {
+    return (
+      <main className="admin-page">
+        <section className="admin-login-card">
+          <div className="admin-login-brand">
+            <img src={veroMark} alt="Vero Security logo" />
+
+            <div>
+              <h1>Vero Admin</h1>
+              <p>Private access for managing enquiries.</p>
+            </div>
+          </div>
+
+          <form className="admin-login-form" onSubmit={handleLoginSubmit}>
+            <label>
+              Email
+              <input
+                type="email"
+                name="email"
+                value={loginForm.email}
+                onChange={handleLoginChange}
+                placeholder="you@example.com"
+                required
+              />
+            </label>
+
+            <label>
+              Password
+              <input
+                type="password"
+                name="password"
+                value={loginForm.password}
+                onChange={handleLoginChange}
+                placeholder="Enter your password"
+                required
+              />
+            </label>
+
+            <button type="submit">
+              Sign In
+              <ArrowRight size={20} />
+            </button>
+
+            {loginError && <p className="admin-error">{loginError}</p>}
+          </form>
+        </section>
+      </main>
+    );
+  }
+
+  return (
+    <main className="admin-page">
+      <section className="admin-shell">
+        <aside className="admin-sidebar">
+          <div className="admin-sidebar-brand">
+            <img src={veroMark} alt="Vero Security logo" />
+
+            <div>
+              <h2>Vero</h2>
+              <p>Admin Dashboard</p>
+            </div>
+          </div>
+
+          <nav className="admin-sidebar-nav">
+            <a href="/admin/enquiries">Enquiries</a>
+            <span>Candidates soon</span>
+            <span>Clients soon</span>
+            <span>Bookings soon</span>
+          </nav>
+
+          <button className="admin-signout-btn" onClick={handleSignOut}>
+            Sign Out
+          </button>
+        </aside>
+
+        <section className="admin-content">
+          <div className="admin-content-header">
+            <div>
+              <p className="admin-kicker">Admin Area</p>
+              <h1>Website Enquiries</h1>
+              <p>
+                View new candidate applications and client staffing requests
+                from your contact form.
+              </p>
+            </div>
+
+            <button className="admin-refresh-btn" onClick={fetchEnquiries}>
+              Refresh
+            </button>
+          </div>
+
+          <div className="admin-stats-row">
+            <div className="admin-stat-card">
+              <h3>{enquiries.length}</h3>
+              <p>Total enquiries</p>
+            </div>
+
+            <div className="admin-stat-card">
+              <h3>
+                {
+                  enquiries.filter(
+                    (enquiry) => enquiry.enquiry_type === "candidate",
+                  ).length
+                }
+              </h3>
+              <p>Candidates</p>
+            </div>
+
+            <div className="admin-stat-card">
+              <h3>
+                {
+                  enquiries.filter(
+                    (enquiry) => enquiry.enquiry_type === "client",
+                  ).length
+                }
+              </h3>
+              <p>Clients</p>
+            </div>
+          </div>
+
+          {loadingEnquiries && (
+            <div className="admin-message-card">Loading enquiries...</div>
+          )}
+
+          {enquiriesError && (
+            <div className="admin-message-card admin-error">
+              {enquiriesError}
+            </div>
+          )}
+
+          {!loadingEnquiries && enquiries.length === 0 && (
+            <div className="admin-message-card">
+              No enquiries yet. When someone submits the contact form, they’ll
+              appear here.
+            </div>
+          )}
+
+          <div className="admin-enquiries-list">
+            {enquiries.map((enquiry) => (
+              <article className="admin-enquiry-card" key={enquiry.id}>
+                <div className="admin-enquiry-top">
+                  <div>
+                    <span
+                      className={`admin-type-pill admin-type-${enquiry.enquiry_type}`}
+                    >
+                      {getEnquiryLabel(enquiry.enquiry_type)}
+                    </span>
+
+                    <h3>{enquiry.full_name}</h3>
+                    <p>{formatDate(enquiry.created_at)}</p>
+                  </div>
+
+                  <span className="admin-status-pill">
+                    {enquiry.status || "New"}
+                  </span>
+                </div>
+
+                <div className="admin-enquiry-grid">
+                  <div>
+                    <span>Email</span>
+                    <p>{enquiry.email || "Not provided"}</p>
+                  </div>
+
+                  <div>
+                    <span>Phone</span>
+                    <p>{enquiry.phone || "Not provided"}</p>
+                  </div>
+
+                  <div>
+                    <span>Company</span>
+                    <p>{enquiry.company_name || "Not provided"}</p>
+                  </div>
+                </div>
+
+                <div className="admin-enquiry-message">
+                  <span>Message</span>
+                  <p>{enquiry.message || "No message provided."}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
       </section>
     </main>
   );

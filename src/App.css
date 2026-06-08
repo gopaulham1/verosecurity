@@ -3037,3 +3037,406 @@ h1 strong {
 .contact-feedback-error h4 {
   color: #fb7185;
 }
+
+/* --- Admin dashboard --- */
+
+.admin-page {
+  min-height: 100vh;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(11, 99, 246, 0.18), transparent 32%),
+    radial-gradient(circle at 90% 20%, rgba(11, 99, 246, 0.14), transparent 30%),
+    #020817;
+  color: white;
+}
+
+.admin-loading-card,
+.admin-login-card,
+.admin-shell,
+.admin-message-card,
+.admin-enquiry-card,
+.admin-stat-card {
+  border: 1px solid rgba(96, 165, 250, 0.28);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(11, 99, 246, 0.14), transparent 34%),
+    rgba(3, 13, 30, 0.72);
+  backdrop-filter: blur(13px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 42px rgba(0, 0, 0, 0.26);
+}
+
+.admin-loading-card {
+  width: min(420px, 100%);
+  margin: 18vh auto 0;
+  padding: 34px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.admin-loading-card svg {
+  color: #0b63f6;
+}
+
+.admin-login-card {
+  width: min(460px, 100%);
+  margin: 12vh auto 0;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.admin-login-brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.admin-login-brand img,
+.admin-sidebar-brand img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.admin-login-brand h1,
+.admin-sidebar-brand h2 {
+  margin: 0;
+  font-family: "Michroma", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.admin-login-brand p,
+.admin-sidebar-brand p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 14px;
+}
+
+.admin-login-form {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-login-form label {
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.admin-login-form input {
+  height: 50px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(96, 165, 250, 0.28);
+  outline: 0;
+  color: white;
+  background: rgba(3, 13, 30, 0.72);
+  font: inherit;
+}
+
+.admin-login-form input:focus {
+  border-color: rgba(25, 118, 255, 0.95);
+  box-shadow: 0 0 24px rgba(37, 99, 235, 0.16);
+}
+
+.admin-login-form button,
+.admin-refresh-btn,
+.admin-signout-btn {
+  height: 52px;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(135deg, #0b63f6, #0044c8);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 900;
+  box-shadow: 0 0 32px rgba(37, 99, 235, 0.34);
+}
+
+.admin-error {
+  color: #fb7185;
+}
+
+.admin-shell {
+  min-height: calc(100vh - 56px);
+  border-radius: 18px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+.admin-sidebar {
+  padding: 28px;
+  border-right: 1px solid rgba(96, 165, 250, 0.22);
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-sidebar-nav {
+  margin-top: 42px;
+  display: grid;
+  gap: 12px;
+}
+
+.admin-sidebar-nav a,
+.admin-sidebar-nav span {
+  padding: 13px 14px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar-nav a {
+  color: white;
+  background: rgba(11, 99, 246, 0.18);
+  border-color: rgba(96, 165, 250, 0.32);
+}
+
+.admin-signout-btn {
+  margin-top: auto;
+  background: rgba(3, 13, 30, 0.76);
+  border: 1px solid rgba(96, 165, 250, 0.26);
+  box-shadow: none;
+}
+
+.admin-content {
+  padding: 34px;
+  overflow: auto;
+}
+
+.admin-content-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.admin-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: #1976ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.admin-content-header h1 {
+  margin: 14px 0 0;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.admin-content-header p {
+  margin: 14px 0 0;
+  max-width: 660px;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.admin-refresh-btn {
+  min-width: 130px;
+}
+
+.admin-stats-row {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.admin-stat-card {
+  padding: 22px;
+  border-radius: 13px;
+}
+
+.admin-stat-card h3 {
+  margin: 0;
+  color: #38bdf8;
+  font-size: 36px;
+  line-height: 1;
+}
+
+.admin-stat-card p {
+  margin: 9px 0 0;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.admin-message-card {
+  margin-top: 24px;
+  padding: 22px;
+  border-radius: 12px;
+}
+
+.admin-enquiries-list {
+  margin-top: 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.admin-enquiry-card {
+  padding: 22px;
+  border-radius: 14px;
+}
+
+.admin-enquiry-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.admin-enquiry-top h3 {
+  margin: 12px 0 0;
+  font-size: 23px;
+}
+
+.admin-enquiry-top p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 14px;
+}
+
+.admin-type-pill,
+.admin-status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.admin-type-candidate {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+}
+
+.admin-type-client {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.28);
+}
+
+.admin-type-other {
+  color: #c4b5fd;
+  background: rgba(196, 181, 253, 0.1);
+  border: 1px solid rgba(196, 181, 253, 0.28);
+}
+
+.admin-status-pill {
+  color: white;
+  background: rgba(11, 99, 246, 0.18);
+  border: 1px solid rgba(96, 165, 250, 0.28);
+}
+
+.admin-enquiry-grid {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(96, 165, 250, 0.18);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.admin-enquiry-grid span,
+.admin-enquiry-message span {
+  color: #1976ff;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.admin-enquiry-grid p,
+.admin-enquiry-message p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.admin-enquiry-message {
+  margin-top: 18px;
+}
+
+@media (max-width: 950px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    border-right: 0;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.22);
+  }
+
+  .admin-signout-btn {
+    margin-top: 28px;
+  }
+
+  .admin-content-header {
+    flex-direction: column;
+  }
+
+  .admin-stats-row,
+  .admin-enquiry-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .admin-page {
+    padding: 16px;
+  }
+
+  .admin-content,
+  .admin-sidebar,
+  .admin-login-card {
+    padding: 22px;
+  }
+}
+
+/* --- Make Vero Admin title fit better on login card --- */
+
+.admin-login-brand {
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.admin-login-brand > div {
+  min-width: 0;
+}
+
+.admin-login-brand img {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.admin-login-brand h1 {
+  margin: 0;
+  font-size: clamp(48px, 5vw, 72px);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+}
+
+.admin-login-brand p {
+  margin-top: 10px;
+}
