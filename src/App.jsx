@@ -155,10 +155,68 @@ const sectorCards = [
   },
 ];
 
+const vettingSteps = [
+  {
+    title: "Licence Verification",
+    text: "All licences are verified with official bodies to ensure validity and compliance.",
+    note: "Peace of mind through verified credentials.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Identity & Right To Work",
+    text: "We verify identity documents and confirm the right to work in the UK.",
+    note: "Only eligible professionals move forward.",
+    icon: BriefcaseBusiness,
+  },
+  {
+    title: "Experience Review",
+    text: "Detailed assessment of experience, qualifications and role-specific skills.",
+    note: "Skills are matched to the right environment.",
+    icon: Search,
+  },
+  {
+    title: "Reference Checks",
+    text: "We speak with previous employers to validate performance and reliability.",
+    note: "Reliability is checked before placement.",
+    icon: Users,
+  },
+  {
+    title: "Final Quality Match",
+    text: "We match the right professional to your role, location and requirements.",
+    note: "The right person, for the right role.",
+    icon: Star,
+  },
+];
+
+const vettingHighlights = [
+  {
+    title: "24/7",
+    label: "Support",
+    text: "Always-on support for urgent staffing and last-minute cover.",
+    icon: Headphones,
+  },
+  {
+    title: "Rapid",
+    label: "Staffing",
+    text: "Quick response teams ready to deploy at short notice.",
+    icon: Zap,
+  },
+  {
+    title: "UK-Wide",
+    label: "Coverage",
+    text: "Trusted professionals available nationwide.",
+    icon: MapPin,
+  },
+];
+
 function App() {
-  const [activeSectorIndex, setActiveSectorIndex] = useState(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const activeSectorLabel = sectorTabs[activeSectorIndex]?.label;
+const [activeSectorIndex, setActiveSectorIndex] = useState(0);
+const [activeVettingIndex, setActiveVettingIndex] = useState(0);
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+const activeSectorLabel = sectorTabs[activeSectorIndex]?.label;
+const activeVettingStep = vettingSteps[activeVettingIndex];
+const ActiveVettingIcon = activeVettingStep.icon;
 
   const [contactForm, setContactForm] = useState({
     full_name: "",
@@ -946,6 +1004,93 @@ function App() {
               </div>
             </div>
           </div>
+          <div className="vetting-mobile-showcase">
+  <div className="vetting-mobile-stepper">
+    {vettingSteps.map((step, index) => (
+      <button
+        type="button"
+        key={step.title}
+        className={`vetting-mobile-step-dot ${
+          activeVettingIndex === index ? "active" : ""
+        }`}
+        onClick={() => setActiveVettingIndex(index)}
+        aria-label={`Show vetting step ${index + 1}`}
+      >
+        {index + 1}
+      </button>
+    ))}
+  </div>
+
+  <article className="vetting-mobile-featured">
+    <div className="vetting-mobile-featured-icon">
+      <ActiveVettingIcon size={46} />
+    </div>
+
+    <div className="vetting-mobile-featured-copy">
+      <span>Step {activeVettingIndex + 1} of 5</span>
+
+      <h3>{activeVettingStep.title}</h3>
+
+      <div className="vetting-mobile-accent"></div>
+
+      <p>{activeVettingStep.text}</p>
+
+      <div className="vetting-mobile-note">
+        <ShieldCheck size={17} />
+        {activeVettingStep.note}
+      </div>
+    </div>
+  </article>
+
+  <div className="vetting-mobile-list">
+    {vettingSteps.map((step, index) => {
+      const Icon = step.icon;
+
+      if (activeVettingIndex === index) {
+        return null;
+      }
+
+      return (
+        <button
+          type="button"
+          className="vetting-mobile-list-card"
+          key={step.title}
+          onClick={() => setActiveVettingIndex(index)}
+        >
+          <div className="vetting-mobile-list-icon">
+            <Icon size={24} />
+          </div>
+
+          <div className="vetting-mobile-list-number">{index + 1}</div>
+
+          <h3>{step.title}</h3>
+
+          <ChevronRight size={22} />
+        </button>
+      );
+    })}
+  </div>
+
+  <div className="vetting-mobile-highlights">
+    {vettingHighlights.map((highlight) => {
+      const Icon = highlight.icon;
+
+      return (
+        <div className="vetting-mobile-highlight" key={highlight.label}>
+          <div className="vetting-mobile-highlight-icon">
+            <Icon size={28} />
+          </div>
+
+          <div>
+            <h3>{highlight.title}</h3>
+            <span>{highlight.label}</span>
+            <p>{highlight.text}</p>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
         </div>
       </section>
       <section className="contact-section" id="contact">

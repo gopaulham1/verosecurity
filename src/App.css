@@ -4052,3 +4052,362 @@ h1 strong {
     padding: 12px 14px;
   }
 }
+
+/* --- Mobile Vetting Standards: premium stepper design --- */
+
+.vetting-mobile-showcase {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .vetting-section {
+    padding: 54px 22px 46px;
+  }
+
+  .vetting-watermark {
+    width: 280px;
+    height: 280px;
+    top: 30px;
+    right: -120px;
+    opacity: 0.08;
+  }
+
+  .vetting-kicker {
+    justify-content: center;
+    gap: 12px;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+  }
+
+  .vetting-kicker span {
+    width: 42px;
+  }
+
+  .vetting-section h2 {
+    margin-top: 22px;
+    font-size: clamp(42px, 12vw, 56px);
+    line-height: 1.02;
+    text-align: center;
+  }
+
+  .vetting-intro {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.48;
+    text-align: center;
+  }
+
+  .vetting-steps,
+  .vetting-stats {
+    display: none !important;
+  }
+
+  .vetting-mobile-showcase {
+    display: block;
+    margin-top: 34px;
+  }
+
+  .vetting-mobile-stepper {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    margin: 0 auto 28px;
+  }
+
+  .vetting-mobile-stepper::before {
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: 50%;
+    height: 1px;
+    background: rgba(96, 165, 250, 0.28);
+    transform: translateY(-50%);
+  }
+
+  .vetting-mobile-step-dot {
+    position: relative;
+    z-index: 2;
+    justify-self: center;
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    border: 1px solid rgba(148, 163, 184, 0.42);
+    color: white;
+    cursor: pointer;
+    background: rgba(3, 13, 30, 0.94);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+  }
+
+  .vetting-mobile-step-dot.active {
+    border-color: rgba(25, 118, 255, 1);
+    background: #0b63f6;
+    box-shadow:
+      0 0 22px rgba(25, 118, 255, 0.9),
+      0 0 48px rgba(25, 118, 255, 0.36);
+    transform: scale(1.08);
+  }
+
+  .vetting-mobile-featured {
+    position: relative;
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 22px;
+    align-items: center;
+    padding: 28px 24px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(96, 165, 250, 0.46);
+    background:
+      radial-gradient(circle at 0% 0%, rgba(11, 99, 246, 0.28), transparent 42%),
+      linear-gradient(135deg, rgba(8, 24, 48, 0.92), rgba(3, 10, 25, 0.86));
+    box-shadow:
+      inset 4px 0 0 rgba(11, 99, 246, 1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0 42px rgba(37, 99, 235, 0.18);
+  }
+
+  .vetting-mobile-featured-icon {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(11, 99, 246, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+  }
+
+  .vetting-mobile-featured-icon svg {
+    color: #0b63f6;
+    filter: drop-shadow(0 0 13px rgba(37, 99, 235, 0.72));
+  }
+
+  .vetting-mobile-featured-copy span {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: #1976ff;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .vetting-mobile-featured-copy h3 {
+    margin: 12px 0 0;
+    font-size: 26px;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+  }
+
+  .vetting-mobile-accent {
+    width: 46px;
+    height: 3px;
+    margin: 15px 0;
+    border-radius: 999px;
+    background: #1976ff;
+    box-shadow: 0 0 18px rgba(25, 118, 255, 0.8);
+  }
+
+  .vetting-mobile-featured-copy p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.42;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .vetting-mobile-note {
+    margin-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #1976ff;
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+
+  .vetting-mobile-note svg {
+    flex: 0 0 auto;
+    color: #1976ff;
+    filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.55));
+  }
+
+  .vetting-mobile-list {
+    margin-top: 16px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .vetting-mobile-list-card {
+    width: 100%;
+    min-height: 66px;
+    padding: 12px 14px;
+    border-radius: 13px;
+    border: 1px solid rgba(96, 165, 250, 0.28);
+    color: white;
+    cursor: pointer;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(11, 99, 246, 0.12), transparent 36%),
+      rgba(3, 13, 30, 0.74);
+    display: grid;
+    grid-template-columns: 44px 34px 1fr 24px;
+    gap: 11px;
+    align-items: center;
+    text-align: left;
+    backdrop-filter: blur(12px);
+  }
+
+  .vetting-mobile-list-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(11, 99, 246, 0.11);
+    border: 1px solid rgba(96, 165, 250, 0.18);
+  }
+
+  .vetting-mobile-list-icon svg,
+  .vetting-mobile-list-card > svg {
+    color: #0b63f6;
+    filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.58));
+  }
+
+  .vetting-mobile-list-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(96, 165, 250, 0.54);
+    color: white;
+    font-size: 13px;
+    font-weight: 850;
+    background: rgba(2, 8, 23, 0.7);
+  }
+
+  .vetting-mobile-list-card h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+  }
+
+  .vetting-mobile-highlights {
+    margin-top: 26px;
+    padding: 20px 18px;
+    border-radius: 16px;
+    border: 1px solid rgba(96, 165, 250, 0.36);
+    background:
+      radial-gradient(circle at 50% 0%, rgba(11, 99, 246, 0.22), transparent 42%),
+      rgba(3, 13, 30, 0.72);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0 38px rgba(37, 99, 235, 0.12);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .vetting-mobile-highlight {
+    padding: 0 10px;
+    text-align: center;
+    border-right: 1px solid rgba(96, 165, 250, 0.2);
+  }
+
+  .vetting-mobile-highlight:last-child {
+    border-right: 0;
+  }
+
+  .vetting-mobile-highlight-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(11, 99, 246, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+  }
+
+  .vetting-mobile-highlight-icon svg {
+    color: #0b63f6;
+    filter: drop-shadow(0 0 13px rgba(37, 99, 235, 0.72));
+  }
+
+  .vetting-mobile-highlight h3 {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .vetting-mobile-highlight span {
+    display: block;
+    margin-top: 7px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #1976ff;
+    font-size: 10px;
+    font-weight: 900;
+  }
+
+  .vetting-mobile-highlight p {
+    margin: 12px 0 0;
+    font-size: 11px;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.64);
+  }
+}
+
+@media (max-width: 430px) {
+  .vetting-mobile-featured {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 26px 22px;
+  }
+
+  .vetting-mobile-featured-icon {
+    width: 82px;
+    height: 82px;
+  }
+
+  .vetting-mobile-list-card {
+    grid-template-columns: 42px 32px 1fr 22px;
+    gap: 10px;
+  }
+
+  .vetting-mobile-list-card h3 {
+    font-size: 15px;
+  }
+
+  .vetting-mobile-highlights {
+    grid-template-columns: 1fr;
+    padding: 10px 18px;
+  }
+
+  .vetting-mobile-highlight {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 14px;
+    text-align: left;
+    align-items: center;
+    padding: 16px 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.18);
+  }
+
+  .vetting-mobile-highlight:last-child {
+    border-bottom: 0;
+  }
+
+  .vetting-mobile-highlight-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+  }
+
+  .vetting-mobile-highlight p {
+    margin-top: 6px;
+  }
+}
