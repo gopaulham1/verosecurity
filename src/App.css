@@ -3705,3 +3705,98 @@ h1 strong {
     line-height: 1.3;
   }
 }
+
+/* --- Mobile Sectors We Serve: show only selected sector card --- */
+
+@media (max-width: 680px) {
+  .sector-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .sector-detail-card {
+    display: none;
+  }
+
+  .sector-detail-card.featured {
+    display: block;
+  }
+}
+
+/* --- Mobile Sectors tabs: 2 per row --- */
+
+@media (max-width: 680px) {
+  .sector-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .sector-tab {
+    height: 56px;
+    font-size: 15px;
+    gap: 9px;
+    padding: 0 10px;
+  }
+
+  .sector-tab svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .sector-line {
+    display: none;
+  }
+}
+/* --- Mobile Sectors: add space between tabs and selected result card --- */
+
+@media (max-width: 680px) {
+  .sector-tabs {
+    margin-bottom: 26px;
+  }
+
+  .sector-detail-grid {
+    margin-top: 0;
+  }
+}
+/* --- Mobile sector CTA: icon on same line as heading --- */
+
+@media (max-width: 680px) {
+  .sector-bottom-cta {
+    grid-template-columns: 46px 1fr;
+    align-items: start;
+    column-gap: 14px;
+    row-gap: 18px;
+    padding: 20px 18px;
+  }
+
+  .sector-bottom-icon {
+    width: 44px;
+    height: 44px;
+    align-self: start;
+    justify-self: center;
+    margin-top: 0;
+  }
+
+  .sector-bottom-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .sector-bottom-cta h3 {
+    margin: 2px 0 0;
+    font-size: 18px;
+    line-height: 1.15;
+  }
+
+  .sector-bottom-cta p {
+    margin-top: 6px;
+    font-size: 13.5px;
+    line-height: 1.3;
+  }
+
+  .sector-cta-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
